@@ -12,6 +12,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
     private String password;
 
@@ -83,5 +84,5 @@ public class UserEntity {
     public void setCredentialNoExpired(boolean credentialNoExpired) {
         this.credentialNoExpired = credentialNoExpired;
     }
-    
+
 }
