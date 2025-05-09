@@ -22,5 +22,30 @@ public class RoleEntity {
     @JoinTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
     private Set<PermissionEntity> permissionEntities = new HashSet<>();
 
+    //* Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public RoleEnum getRolesEnum() {
+        return rolesEnum;
+    }
+
+    public void setRolesEnum(RoleEnum rolesEnum) {
+        this.rolesEnum = rolesEnum;
+    }
+
+    public Set<PermissionEntity> getPermissionEntities() {
+        return permissionEntities;
+    }
+
+    public void setPermissionEntities(Set<PermissionEntity> permissionEntities) {
+        this.permissionEntities = permissionEntities;
+    }
+
 }
 
