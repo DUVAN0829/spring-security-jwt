@@ -3,15 +3,14 @@ package com.security.app.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "roles")
-public class RolesEntity {
+@Table(name = "permissions")
+public class PermissionEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "role_name")
-    @Enumerated(EnumType.STRING)
-    private RolesEnum rolesEnum;
+    @Column(unique = true, nullable = false, updatable = false)
+    private String name;
 
 }
