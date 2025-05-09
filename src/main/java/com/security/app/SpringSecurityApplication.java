@@ -69,31 +69,31 @@ public class SpringSecurityApplication {
             userDuvan.setRoles(Set.of(roleDeveloper));
 
             UserEntity userJames = new UserEntity();
-            userDuvan.setUsername("James");
-            userDuvan.setPassword("12345");
-            userDuvan.setEnabled(true);
-            userDuvan.setAccountNoExpired(true);
-            userDuvan.setAccountNoLocked(true);
-            userDuvan.setCredentialNoExpired(true);
-            userDuvan.setRoles(Set.of(roleAdmin));
+            userJames.setUsername("James");
+            userJames.setPassword("12345");
+            userJames.setEnabled(true);
+            userJames.setAccountNoExpired(true);
+            userJames.setAccountNoLocked(true);
+            userJames.setCredentialNoExpired(true);
+            userJames.setRoles(Set.of(roleAdmin));
 
             UserEntity userJoe = new UserEntity();
-            userDuvan.setUsername("Joe");
-            userDuvan.setPassword("12345");
-            userDuvan.setEnabled(true);
-            userDuvan.setAccountNoExpired(true);
-            userDuvan.setAccountNoLocked(true);
-            userDuvan.setCredentialNoExpired(true);
-            userDuvan.setRoles(Set.of(roleUser));
+            userJoe.setUsername("Joe");
+            userJoe.setPassword("12345");
+            userJoe.setEnabled(true);
+            userJoe.setAccountNoExpired(true);
+            userJoe.setAccountNoLocked(true);
+            userJoe.setCredentialNoExpired(true);
+            userJoe.setRoles(Set.of(roleUser));
 
             UserEntity userMarie = new UserEntity();
-            userDuvan.setUsername("Marie");
-            userDuvan.setPassword("12345");
-            userDuvan.setEnabled(true);
-            userDuvan.setAccountNoExpired(true);
-            userDuvan.setAccountNoLocked(true);
-            userDuvan.setCredentialNoExpired(true);
-            userDuvan.setRoles(Set.of(roleInvited));
+            userMarie.setUsername("Marie");
+            userMarie.setPassword("12345");
+            userMarie.setEnabled(true);
+            userMarie.setAccountNoExpired(true);
+            userMarie.setAccountNoLocked(true);
+            userMarie.setCredentialNoExpired(true);
+            userMarie.setRoles(Set.of(roleInvited));
 
             userRepository.saveAll(List.of(userDuvan, userJames, userJoe, userMarie));
 

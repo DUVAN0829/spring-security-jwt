@@ -60,30 +60,34 @@ public class SecurityConfig {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(null);
+        //provider.setUserDetailsService(userDetailsService());
 
         return provider;
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
 
-        List<UserDetails> userDetailsList = new ArrayList<>();
+    //todo: esto es remplazado por userDetailServicesImpl para ser manejado en la base de datos.
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//
+//        List<UserDetails> userDetailsList = new ArrayList<>();
+//
+//        userDetailsList.add(User.withUsername("Duvan")
+//                .password("12345")
+//                .roles("ADMIN")
+//                .authorities("READ", "CREATE")
+//                .build());
+//
+//        userDetailsList.add(User.withUsername("Diana")
+//                .password("12345")
+//                .roles("USER")
+//                .authorities("READ")
+//                .build());
+//
+//        return new InMemoryUserDetailsManager(userDetailsList);
+//    }
 
-        userDetailsList.add(User.withUsername("Duvan")
-                .password("12345")
-                .roles("ADMIN")
-                .authorities("READ", "CREATE")
-                .build());
-
-        userDetailsList.add(User.withUsername("Diana")
-                .password("12345")
-                .roles("USER")
-                .authorities("READ")
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
