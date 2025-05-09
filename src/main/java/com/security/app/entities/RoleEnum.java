@@ -1,6 +1,6 @@
 package com.security.app.entities;
 
-public enum RolesEnum {
+public enum RoleEnum {
 
     ADMIN,
     USER,
