@@ -91,4 +91,11 @@ public class UserEntity {
         this.credentialNoExpired = credentialNoExpired;
     }
 
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
 }
