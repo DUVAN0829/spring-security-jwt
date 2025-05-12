@@ -11,12 +11,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
 public class SpringSecurityApplication {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringSecurityApplication.class, args);
@@ -63,7 +67,7 @@ public class SpringSecurityApplication {
             //todo: Create users
             UserEntity userDuvan = new UserEntity();
             userDuvan.setUsername("Duván");
-            userDuvan.setPassword("12345");
+            userDuvan.setPassword(passwordEncoder.encode("12345"));
             userDuvan.setEnabled(true);
             userDuvan.setAccountNoExpired(true);
             userDuvan.setAccountNoLocked(true);
@@ -72,7 +76,7 @@ public class SpringSecurityApplication {
 
             UserEntity userJames = new UserEntity();
             userJames.setUsername("James");
-            userJames.setPassword("12345");
+            userJames.setPassword(passwordEncoder.encode("54321"));
             userJames.setEnabled(true);
             userJames.setAccountNoExpired(true);
             userJames.setAccountNoLocked(true);
@@ -81,7 +85,7 @@ public class SpringSecurityApplication {
 
             UserEntity userJoe = new UserEntity();
             userJoe.setUsername("Joe");
-            userJoe.setPassword("12345");
+            userJoe.setPassword(passwordEncoder.encode("56789"));
             userJoe.setEnabled(true);
             userJoe.setAccountNoExpired(true);
             userJoe.setAccountNoLocked(true);
@@ -90,7 +94,7 @@ public class SpringSecurityApplication {
 
             UserEntity userMarie = new UserEntity();
             userMarie.setUsername("Marie");
-            userMarie.setPassword("12345");
+            userMarie.setPassword(passwordEncoder.encode("98765"));
             userMarie.setEnabled(true);
             userMarie.setAccountNoExpired(true);
             userMarie.setAccountNoLocked(true);
