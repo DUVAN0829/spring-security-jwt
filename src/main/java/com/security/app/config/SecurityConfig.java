@@ -1,6 +1,9 @@
 package com.security.app.config;
 
+import com.security.app.filter.JwtTokenValidator;
 import com.security.app.services.UserDetailServicesImpl;
+import com.security.app.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,6 +25,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +35,11 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    //Vars
+    @Autowired
+    private JwtUtils jwtUtils;
+
+    //Methods
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -40,7 +49,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
 
                     //* Configurar los endpoints publicos
-                    http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll();
+                    http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
 
                     //* Configurar los endpoints privados
                     http.requestMatchers(HttpMethod.PATCH, "/auth/patch").hasAuthority("REFACTOR");
@@ -52,6 +61,7 @@ public class SecurityConfig {
                     http.anyRequest().denyAll();
 
                 })
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
     }
 
