@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "users")
 public class UserEntity {
 
-    //* Vars
+    //Vars
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,7 +34,7 @@ public class UserEntity {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    //*Getters and Setters
+    //Getters and Setters
     public Long getId() {
         return id;
     }
