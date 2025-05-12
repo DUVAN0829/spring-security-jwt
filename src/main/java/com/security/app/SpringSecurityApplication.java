@@ -5,6 +5,8 @@ import com.security.app.entities.RoleEntity;
 import com.security.app.entities.RoleEnum;
 import com.security.app.entities.UserEntity;
 import com.security.app.repository.UserRepository;
+import com.security.app.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
