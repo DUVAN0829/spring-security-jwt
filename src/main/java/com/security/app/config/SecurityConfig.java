@@ -39,10 +39,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
 
                     //* Configurar los endpoints publicos
-                    http.requestMatchers(HttpMethod.GET, "/auth/hello").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/auth/get").permitAll();
 
                     //* Configurar los endpoints privados
-                    http.requestMatchers(HttpMethod.GET, "/auth/hello-secured").hasAuthority("CREATE");
+                    http.requestMatchers(HttpMethod.PATCH, "/auth/patch").hasAuthority("REFACTOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/auth/delete").hasAnyAuthority("REFACTOR", "DELETE");
+                    http.requestMatchers(HttpMethod.PUT, "/auth/put").hasRole("DEVELOPER");
+                    http.requestMatchers(HttpMethod.POST, "/auth/post").hasAnyRole("DEVELOPER", "ADMIN");
 
                     //* Configurar los endpoinst no especificados
                     http.anyRequest().denyAll();
