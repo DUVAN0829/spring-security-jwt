@@ -1,5 +1,6 @@
 package com.security.app.services;
 
+import com.security.app.controller.dto.AuthCreateUser;
 import com.security.app.controller.dto.AuthLoginRequest;
 import com.security.app.controller.dto.AuthResponse;
 import com.security.app.entities.UserEntity;
@@ -98,4 +99,9 @@ public class UserDetailServicesImpl implements UserDetailsService {
     }
 
 
+    public AuthResponse createUser(AuthCreateUser authCreateUser) {
+
+
+
+    }
 }
