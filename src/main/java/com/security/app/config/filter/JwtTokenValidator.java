@@ -1,4 +1,4 @@
-package com.security.app.filter;
+package com.security.app.config.filter;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.security.app.utils.JwtUtils;

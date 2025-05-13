@@ -77,7 +77,7 @@ public class UserDetailServicesImpl implements UserDetailsService {
 
         String accessToken = jwtUtils.createToken(authentication);
 
-        return new AuthResponse(username, "User loged successfuly", accessToken, true);
+        return new AuthResponse(username, "User logged successfully", accessToken, true);
 
     }
 

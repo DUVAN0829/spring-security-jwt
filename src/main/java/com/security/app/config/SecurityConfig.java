@@ -1,6 +1,6 @@
 package com.security.app.config;
 
-import com.security.app.filter.JwtTokenValidator;
+import com.security.app.config.filter.JwtTokenValidator;
 import com.security.app.services.UserDetailServicesImpl;
 import com.security.app.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +17,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -52,10 +44,10 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
 
                     //* Configurar los endpoints privados
-                    http.requestMatchers(HttpMethod.PATCH, "/auth/patch").hasAuthority("REFACTOR");
-                    http.requestMatchers(HttpMethod.DELETE, "/auth/delete").hasAnyAuthority("REFACTOR", "DELETE");
-                    http.requestMatchers(HttpMethod.PUT, "/auth/put").hasRole("DEVELOPER");
-                    http.requestMatchers(HttpMethod.POST, "/auth/post").hasAnyRole("DEVELOPER", "ADMIN");
+                    http.requestMatchers(HttpMethod.PATCH, "/method/patch").hasAuthority("REFACTOR");
+                    http.requestMatchers(HttpMethod.DELETE, "/method/delete").hasAnyAuthority("REFACTOR", "DELETE");
+                    http.requestMatchers(HttpMethod.PUT, "/method/put").hasRole("DEVELOPER");
+                    http.requestMatchers(HttpMethod.POST, "/method/post").hasAnyRole("DEVELOPER", "ADMIN");
 
                     //* Configurar los endpoinst no especificados
                     http.anyRequest().denyAll();
