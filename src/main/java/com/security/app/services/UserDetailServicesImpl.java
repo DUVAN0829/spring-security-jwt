@@ -1,9 +1,12 @@
 package com.security.app.services;
 
-import com.security.app.controller.dto.AuthCreateUser;
+import com.security.app.controller.dto.AuthCreateUserRequest;
 import com.security.app.controller.dto.AuthLoginRequest;
 import com.security.app.controller.dto.AuthResponse;
+import com.security.app.entities.RoleEntity;
+import com.security.app.entities.RoleEnum;
 import com.security.app.entities.UserEntity;
+import com.security.app.repository.RoleRepository;
 import com.security.app.repository.UserRepository;
 import com.security.app.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailServicesImpl implements UserDetailsService {
@@ -34,6 +40,9 @@ public class UserDetailServicesImpl implements UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     //Methods
     @Override
@@ -86,11 +95,11 @@ public class UserDetailServicesImpl implements UserDetailsService {
 
         UserDetails userDetails = this.loadUserByUsername(username);
 
-        if(userDetails == null) {
+        if (userDetails == null) {
             throw new BadCredentialsException("Invalid username or password");
         }
 
-        if(!passwordEncoder.matches(password, userDetails.getPassword())) {
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Invalid password");
         }
 
@@ -99,9 +108,44 @@ public class UserDetailServicesImpl implements UserDetailsService {
     }
 
 
-    public AuthResponse createUser(AuthCreateUser authCreateUser) {
+    public AuthResponse createUser(AuthCreateUserRequest authCreateUserRequest) {
 
+        String username = authCreateUserRequest.getUsername();
+        String password = authCreateUserRequest.getPassword();
 
+        List<RoleEnum> roleRequest = authCreateUserRequest.getAuthCreateRoleRequest().getRoleListName();
+
+        Set<RoleEntity> roleEntitySet = new HashSet<>(roleRepository.findByRoleEnumIn(roleRequest)); //* Convert List to Set
+
+        if (roleEntitySet.isEmpty()) {
+            throw new IllegalArgumentException("The roles specified does not exist.");
+        }
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(username);
+        userEntity.setPassword(passwordEncoder.encode(password));
+        userEntity.setRoles(roleEntitySet);
+        userEntity.setEnabled(true);
+        userEntity.setAccountNoLocked(true);
+        userEntity.setAccountNoExpired(true);
+        userEntity.setCredentialNoExpired(true);
+
+        UserEntity userCreated = userRepository.save(userEntity);
+
+        ArrayList<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+
+        userCreated.getRoles().forEach(role -> authorityList.add(new SimpleGrantedAuthority("ROLE_".concat(role.getRolesEnum().name()))));
+
+        userCreated.getRoles()
+                .stream()
+                .flatMap(role -> role.getPermissionEntities().stream())
+                .forEach(permission -> authorityList.add(new SimpleGrantedAuthority(permission.getName())));
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(userCreated.getUsername(), userCreated.getPassword(), authorityList);
+
+        String accessToken = jwtUtils.createToken(authentication);
+
+        return new AuthResponse(userCreated.getUsername(), "User Created successfully", accessToken, true);
 
     }
 }

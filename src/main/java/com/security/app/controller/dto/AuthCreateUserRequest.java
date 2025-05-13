@@ -3,7 +3,7 @@ package com.security.app.controller.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 
-public class AuthCreateUser {
+public class AuthCreateUserRequest {
 
     //vars
     @NotEmpty
@@ -16,7 +16,7 @@ public class AuthCreateUser {
     private AuthCreateRoleRequest authCreateRoleRequest;
 
     //Constructors
-    public AuthCreateUser(String username, String password, AuthCreateRoleRequest authCreateRoleRequest) {
+    public AuthCreateUserRequest(String username, String password, AuthCreateRoleRequest authCreateRoleRequest) {
         this.username = username;
         this.password = password;
         this.authCreateRoleRequest = authCreateRoleRequest;
